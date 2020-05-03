@@ -1,6 +1,7 @@
 import re
 import datetime
 import pathlib
+import codecs
 
 from html.parser import HTMLParser
 from jinja2 import Template
@@ -68,6 +69,7 @@ template = Template('''
 <html>
   <head>
     <title>Persona 5 Royal Calendar by 黑桐谷歌</title>
+    <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
     <script
       src="https://code.jquery.com/jquery-3.1.1.min.js"
@@ -124,7 +126,7 @@ for i, entry in enumerate(parser.entries):
         next = parser.entries[i + 1].date.strftime('%m月%d日')
         next_link = '/{}'.format(parser.entries[i + 1].relative_path())
     
-    with open(html_path, 'w') as out:
+    with codecs.open(html_path, 'w', 'utf-8') as out:
         out.write(template.render(title=date_text, lines=entry.lines,
                                   prev_visible=prev_visible,
                                   next_visible=next_visible,
